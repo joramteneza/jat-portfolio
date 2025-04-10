@@ -13,7 +13,7 @@ const projects = [
     title: "Altev Technologies",
     description:
       "Corporate website built for Altev Technologies with server-side rendering and static site generation capabilities.",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/images/altev.gif?height=400&width=600",
     tags: ["Next.js", "TypeScript"],
     liveUrl: "https://www.altev.tech/",
   },
@@ -21,7 +21,7 @@ const projects = [
     title: "Ticketnation Platform",
     description:
       "A full-featured event ticketing platform with ticket purchasing, event management, and analytics dashboards for organizers.",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/images/ticketnation.jpg?height=400&width=600",
     tags: ["NestJS", "PostgreSQL", "Prisma", "NextJS", "AWS", "Docker"],
     liveUrl: "https://www.ticketnation.ph/",
   },
@@ -37,7 +37,7 @@ const projects = [
     title: "Memory Match Game",
     description:
       "A fun memory game built with full-stack technologies, showcasing real-time state management and database integration.",
-    image: "/placeholder.svg?height=400&width=600",
+    image: "/images/memory-match.jpg?height=400&width=600",
     tags: ["Next.js", "Prisma", "MongoDB", "TypeScript"],
     liveUrl: "https://memory-match-smoky.vercel.app/",
     githubUrl: "https://github.com/joramteneza/memory-game",
@@ -97,7 +97,7 @@ export default function Projects() {
                 className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow"
                 whileHover={{ y: -5 }}
               >
-                <div className="relative h-64 w-full">
+                <div className="relative h-80 w-full">
                   <Image
                     src={project.image || "/placeholder.svg"}
                     alt={project.title}
