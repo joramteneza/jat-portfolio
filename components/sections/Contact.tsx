@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-
+import { useState } from "react";
 import { SectionAnimation } from "@/components/ui/section-animation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 import { SiGithub, SiLinkedin, SiMedium } from "react-icons/si";
 
 const contactInfo = [
@@ -29,7 +28,7 @@ const contactInfo = [
     icon: MapPin,
     label: "Location",
     value: "Mandaluyong City, NCR",
-    href: "https://www.google.com/maps/place/Niagara+Tower+at+Acqua+Private+Residences/@14.5682212,121.0329804,17z/data=!4m6!3m5!1s0x3397c85311b69dd3:0x42544c596b55a27b!8m2!3d14.5682212!4d121.0355553!16s%2Fg%2F11d__hdq2h?entry=ttu&g_ep=EgoyMDI1MDMxOS4yIKXMDSoASAFQAw%3D%3D",
+    href: "https://www.google.com/maps/place/Niagara+Tower+at+Acqua+Private+Residences",
   },
 ];
 
@@ -70,26 +69,40 @@ export default function Contact() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormState({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
       });
 
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 5000);
-    }, 1500);
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormState({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+
+        // Reset success message after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+        }, 5000);
+      } else {
+        throw new Error("Error sending message.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
